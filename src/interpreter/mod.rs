@@ -174,7 +174,7 @@ impl<'txin> Interpreter<'txin> {
         witness: &'txin Witness,
         age: u32,
         height: u32,
-        txtemplate: sha256::Hash
+        txtemplate: sha256::Hash,
     ) -> Result<Self, Error> {
         let (inner, stack, script_code) = inner::from_txdata(spk, script_sig, witness)?;
         Ok(Interpreter {
@@ -503,8 +503,8 @@ pub enum SatisfiedConstraint {
     /// Check Template Verify Covenant
     TxTemplate {
         /// The hash value of the transaction
-        hash: &'intp sha256::Hash
-    }
+        hash: &'intp sha256::Hash,
+    },
 }
 
 ///This is used by the interpreter to know which evaluation state a AstemElem is.
@@ -982,7 +982,7 @@ where
                     if res.is_some() {
                         return res;
                     }
-                },
+                }
                 //All other match patterns should not be reached in any valid
                 //type checked Miniscript
                 _ => return Some(Err(Error::CouldNotEvaluate)),
